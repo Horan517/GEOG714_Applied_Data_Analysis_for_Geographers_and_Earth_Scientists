@@ -1,0 +1,64 @@
+---
+title: "GEOG 714 - Notes 2"
+author: "Haoran Xu"
+date: "Sep 16, 2024"
+output:
+  pdf_document:
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{listings}
+  - \lstset{breaklines=true}  # 使代码块中的代码自动换行
+---
+
+## review of last course
+```{r}
+a <- c(2, 4, 3, 5, 7, 6)
+print(length(a[1:3]))
+
+print(order(c(30, 10, 20)))
+
+j <- c(2, 3, 5, 4, 3, 2, 3, 6, 7)
+k <- c(1, 4, 5, 2, 6, 7, 8, 9, 8)
+m <- cbind(j, k)
+m[,2]
+```
+
+
+data.frame() 
+# object-attributes structure
+
+
+```{r}
+data.frame() 
+# object-attributes structure
+```
+
+PCA --> look at Attributes
+Clustering --> look at observations
+Modelling --> look at all things
+
+
+Shared Attribute <- Population
+- parameters = 1.78m (average height of Canadian)  (it's unkownable, it's just statistic value out of samples) 
+\pu often is measured as mean. (standard of the population)
+
+sampling error 抽样误差
+other types of errors: bias (equippment errors, method errors)
+systematic error 系统误差/systematic bias
+
+effect size - health
+
+statistically significant does not mean "effect size" # 
+
+p-value 有一些问题
+p-value没有考虑任何practical significance (which it ignores effect size)
+
+p-value is how likely you are to have found a particular set of observations if the null hypothesis were true.
+
+null hypothesis: \mu_A = \mu_B
+
+如果p-value特别小，说明inconsist with null hyposesis --> the lengths are different
+
+sample size越大,p更容易显著？
+
+需要注意：sample size很大，但是容易显著，但实际上effect很小（这叫p hacking)

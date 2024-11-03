@@ -1,0 +1,78 @@
+---
+title: "Notes6"
+author: "Haoran Xu"
+date: "2024-10-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+举了一个例子：花了一个九宫格，每个格子里面种的有不同的植物：
+
+Fixed effects
+Random effects
+
+Group effects：可能需要把一整个格子里的植物看成一个整体，然后再
+
+e.g., 假设有10k个人，每个人测量连续20个月的income
+这样似乎可以得到10k x 20 = 200k 个数据，但真的sample size是200k吗？No，因为每个人的20个月数据是相关的，因此意思是：要避免correlation的问题
+
+linear mixed models：用在如果每个case本身有多变量，random model是尝试measure不同组之间的effects
+  - mixed --> fixed/random
+  
+  
+```{r}
+x1 <- rnorm(300)
+groups <- seq(1:10)
+g1 <- sample(groups, 300, replace = TRUE)
+
+df <- data.frame(x1, g1)
+
+df$y <- 5 * df$x1 + rnorm(300)
+group_effect <- rnorm(10, 0, 1)
+df$g1_effect <- group_effect[g1]  # 重要!这个相当于给df这一列中每一个赋予每一个indice值
+df$yre <- 5 * df$x1 + df$g1_effect + rnorm(300) # 中间那个是固定的group error, 对于一个组里面多， 后面的rnorm是random error
+boxplot(df$yre ~ df$g1)
+
+# 如果扩组内的error: 这样boxplot做出来的图组间差异会更大
+group_effect2 <- rnorm(10, 0, 10)
+df$g1_effect2 <- group_effect2[g1]
+df$yre2 <- 5 * df$x1 + df$g1_effect2 + rnorm(300)
+boxplot(df$yre2 ~ df$g1)
+
+## 
+
+out <- lm(df$yre ~ df$x1)
+summary(out)
+df$p <- out$fitted.values
+
+for (i in 1:10){
+  if(i == 1){
+    plot(df$x1[df$g1 == i], df$p[df$g1 == i], col = "red")
+  }
+  colour <- sprintf("#%20x%02x%02x", i * 20, 0, 0)
+  points(df$x1[df$g1 == i], )
+}
+
+install.packages("lme4")
+install.packages("Matrix")
+library(lme4)
+
+
+
+out2 <- lmer(df$yre ~ df$x1 + (1|g1))
+summary(out2)
+
+out3 <- lmer(df$yre2 ~ df$x1 + (1|g1))
+summary(out3)   # 如果我们用更大的group effect，然后发现random effects下面的g1的std.dev.就变成大概==10了。
+# random effects中：g1 的std.dev. 显示的是组间差异；residual 显示的是std.dev.是0.93
+# random slope & random intercept effects
+# random slope effects: Kaggle上有datasets
+
+# 这个方法建议可以dive in
+
+# 下节课教PCA
+```
+  

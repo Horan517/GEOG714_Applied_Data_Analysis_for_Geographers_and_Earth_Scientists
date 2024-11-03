@@ -1,0 +1,43 @@
+---
+title: "notes4"
+author: "Haoran Xu"
+date: "2024-10-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 数学公式展示
+
+这是一个行内公式：$a = \pi r^2$
+
+这是一个独立公式：
+$$ y_i = \beta_0 + \beta_1*x_i + e_i $$
+
+```{r}
+x_i <- rnorm(100,0,1)
+y_i <- rnorm(100,0,1)
+plot(x_i, y_i)
+
+# 举例子：这样的model是positivle 
+x_i <- rnorm(100,0,1)
+y_i <- x_i + rnorm(100,0,1)
+plot(x_i, y_i)
+
+# 降低errors (降低variances)
+x_i <- rnorm(100,0,1)
+y_i <- 5 + -2*x_i + rnorm(100,0,5)
+plot(x_i, y_i)
+
+# professional language: for every x_i increases by one unit, y_i decreases two units. (negative association)d
+
+# OLS Regression ()
+lm(y_i ~ x_i)
+
+out <- lm(y_i ~ x_i)
+summary(out) 
+# r square 可以作为 "pencentage of explanation"
+# 可以看一下residuals: 如果1Q和3Q分布在mean两边的equal distance，说明数据是呈现normal distribution
+```

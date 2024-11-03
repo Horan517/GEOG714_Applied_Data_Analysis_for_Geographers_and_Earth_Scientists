@@ -1,0 +1,131 @@
+---
+title: "Notes5 - Oct 21"
+author: "Haoran Xu"
+date: "2024-10-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## linear regression
+
+```{r}
+x1 <- rnorm(100, 0, 1)
+x2 <- rnorm(100) # the defuat would be rnorm(100, 0, 1)
+hist(x1)
+
+y <- 20 - 5 * x1 + 5 * x2 + rnorm(100, 0, 5)
+# y <- 20 - 5 * x1 + 5 * x2 + rnorm(100, 0, 50) # 如果error像现在一样特别大，说明我们的模型没有考量很多因素
+
+summary(lm(y ~ x1 + x2))
+summary(lm(y ~ x1))    
+summary(lm(y ~ x2))
+
+# 如果x1和x2是independent of each other, 可以分别regress，不用做multiple regression
+# 1. 一方面，对于x1, x2的coefficients,两种方法得出的结果没有太大差别
+# 2. 另一方面，multiple regression的r-squared会高一些。
+# 3. 如果需要做prediction，一定要包括所有的变量
+```
+
+# --------
+
+```{r}
+x1 <- rnorm(100)
+x2 <- (rnorm(100) + x1)/2 # now x2 is correlated to x1
+y <- 20 - 5 * x1 + 5 * x2 + rnorm(100, 0, 5)
+
+summary(lm(y ~ x1 + x2))
+summary(lm(y ~ x1))
+summary(lm(y ~ x2))
+
+# 现实世界所有的变量都是related to each other,
+# 可以只放一些比较“独立”的key variables，这样可以更加specifically 看一些variables 的变化
+```
+
+```{r}
+
+# 一般social sciences 不用3-D plot，因为people可能不太懂
+
+# interaction: 比较有趣
+# e.g., deprivity of wealthy people
+# e.g., 药物的相互作用
+# e.g., 穷人更有被climate change 影响，whereas 富人...
+
+x1 <- rnorm(100)
+x2 <- rnorm(100)
+
+x1x2 <- x1 * x2
+
+y <- 20 - 5 * x1 + 5 * x2 + -5 * x1x2 + rnorm(100, 0, 5)
+
+summary(lm(y ~ x1 + x2 + x1x2))
+out <- lm(y ~ x1 + x2 + x1x2)
+coeff <- out$coefficients
+
+summary(lm(y ~ x1))
+summary(lm(y ~ x2))
+summary(lm(y ~ x1x2))
+
+plot(x1 ,y)
+plot(x2 ,y)
+plot(x1x2 ,y)
+
+# 这一块不太好理解，相当于把x1给变成constant (25 percentile/75 percentile), 然后再plot x2和y的关系：目的是为了避免使用3-d的图
+# 下面的这种作图可以很好的反映x1和x2之间的interactions
+quantile(x1)
+x1_25 <- quantile(x1)[2]
+x1_75 <- quantile(x1)[4]
+
+p1 <- coeff[2] * x1_75 + coeff[3] * x2 + coeff[4] * x2 * x1_75
+p2 <- coeff[2] * x1_25 + coeff[3] * x2 + coeff[4] * x2 * x1_25
+
+plot(x2, p1, col="red", pch=20, xlab="x2")
+points(x2, p2, col = "blue", pch=20)
+
+# 如果两条线不平行，说明x1和x2有关系
+```
+
+```{r}
+x1 <- rnorm(100)
+x2 <- rnorm(100)
+x3 <- sample(c(1, 2, 3), 100, replace = TRUE)
+x3A <- ifelse(x3 == 1, 1, 0)  # presence of x3A
+x3B <- ifelse(x3 == 2, 1, 0)
+x3AB <- ifelse(x3 == 1 | x3 == 2, 1, 0)
+
+y <- 20 + x1 + x2 + 2 * x3A + -5 * x3B + rnorm(100, 0, 5)
+# 添加x3A和x3B意味着 --> 体现presence of x3
+# 如果x3A是1，可以预测 2 unit increase
+# 如果x3A是2，可以预测 5 unit decrease
+# 如果x3A是3，没有影响
+
+out <- lm(y ~ x1 + x2 + x3A + x3B) # !重要: 对于x3这个分类变量，如果它有三类，我们只会把它categorize成两个新的dummy variable，然后再考虑一下他们俩之间的关系，即x3AB
+```
+
+## non-linear
+
+```{r}
+x1 <- rnorm(100)
+x1sq <- x1 ^2
+y <- 20 + -2 * x1 + 4 * x1sq + rnorm(100)
+plot(x1, y)
+
+out <- lm(y ~ x1 + x1sq)
+summary(out)
+coeff <- out$coefficients
+p <- coeff[1] + coeff[2] * x1 + coeff[3] * x1sq   # 想要interpret, 可以把系数加上，然后recreate a model，然后再说y随着x1的变化（在这个case中y其实是一个x1的二项式）
+plot(x1, p)
+# 不要把它interpret成multi-variable regression，而是同时interpret x1和x1sq, e.g., 
+# Main takeaway: 
+
+```
+
+## logistic model
+
+这个不准备讲了，需要回去自己学
+
+
+
+

@@ -1,0 +1,471 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+  breaklines=true,        % 自动换行
+  breakatwhitespace=true, % 仅在空白处换行，确保注释保持整洁
+  basicstyle=\ttfamily,   % 使用等宽字体
+  keepspaces=true,        % 保留空格
+  columns=flexible,       % 灵活的列宽
+  showstringspaces=false, % 不显示字符串中的空格
+  escapeinside={(*@}{@*)}, % 用于在代码中插入LaTeX命令
+  commentstyle=\color{gray},  % 注释的颜色
+  xleftmargin=1em,        % 左侧边距
+  xrightmargin=1em        % 右侧边距
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={GEOG 714 - Assignment 3},
+  pdfauthor={Haoran Xu},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{GEOG 714 - Assignment 3}
+\author{Haoran Xu}
+\date{Sep 29, 2024}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# hi!  don\textquotesingle{}t know why this can\textquotesingle{}t be detected!}
+
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{change }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+    \FunctionTok{return}\NormalTok{(x }\SpecialCharTok{+}\NormalTok{ a)}
+\NormalTok{\}}
+\FunctionTok{change}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\CommentTok{\# print(x) \# this will generate an error}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{6}
+\NormalTok{change }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{    y }\OtherTok{\textless{}{-}} \DecValTok{5}
+    \FunctionTok{return}\NormalTok{(x }\SpecialCharTok{+}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ y)}
+\NormalTok{\}}
+\FunctionTok{change}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(x)}
+\CommentTok{\# print(y) \# this will generate an error}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stuff }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{blah }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{    stuff }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{\}}
+\FunctionTok{print}\NormalTok{(stuff)}
+\FunctionTok{blah}\NormalTok{()}
+\FunctionTok{print}\NormalTok{(stuff)}
+
+\CommentTok{\# compare below:}
+\NormalTok{stuff }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{blah }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{    stuff }\OtherTok{\textless{}\textless{}{-}} \DecValTok{5}  \CommentTok{\# \textquotesingle{}\textless{}\textless{}{-}\textquotesingle{} assignment operator can be used to change global variables from within functions. }
+\NormalTok{\}}
+\FunctionTok{print}\NormalTok{(stuff)}
+\FunctionTok{blah}\NormalTok{()}
+\FunctionTok{print}\NormalTok{(stuff)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages(\textquotesingle{}here\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(here)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## here() starts at /Users/horanxu/Desktop/GEOG714_Applied_Data_Analysis_for_Geographers_and_Earth_Scientists
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{here}\NormalTok{()}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\FunctionTok{here}\NormalTok{(), }\StringTok{"/Assignments/Assignment3/data/Canada2006\_WVS\_Sheet1.csv"}\NormalTok{)))}
+
+\FunctionTok{names}\NormalTok{(df) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"respondent"}\NormalTok{, }\StringTok{"happiness"}\NormalTok{, }\StringTok{"healthg"}\NormalTok{, }\StringTok{"friends"}\NormalTok{, }\StringTok{"satisfaction"}\NormalTok{, }\StringTok{"membership"}\NormalTok{,}
+    \StringTok{"science"}\NormalTok{, }\StringTok{"age"}\NormalTok{, }\StringTok{"size"}\NormalTok{, }\StringTok{"weight"}\NormalTok{)}
+
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{), }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{3}\NormalTok{)}
+\FunctionTok{apply}\NormalTok{(m, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) x }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{)  }\CommentTok{\# return TRUE/FALSE}
+\NormalTok{m[}\FunctionTok{apply}\NormalTok{(m, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) x }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{)] }\OtherTok{\textless{}{-}} \DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[df }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{] }\OtherTok{\textless{}{-}} \ConstantTok{NA}  \CommentTok{\# no need add quotation marks}
+\FunctionTok{length}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{healthg[}\FunctionTok{is.na}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{healthg) }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Q1. Write a two to three sentence explanation about what is
+happening in this code. You may need to read up on the length() and
+is.na()
+functions.}\label{q1.-write-a-two-to-three-sentence-explanation-about-what-is-happening-in-this-code.-you-may-need-to-read-up-on-the-length-and-is.na-functions.}
+
+The code uses \texttt{is.na()} to identify missing values in the
+\texttt{healthg} column and applies \texttt{length()} to count the total
+number of \texttt{NA} entries in that column. So it can calcutes the
+number of missing values of \texttt{df\$healthg}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df[}\FunctionTok{apply}\NormalTok{(df, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) }\SpecialCharTok{!}\FunctionTok{any}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x))), ]  }\CommentTok{\# return TRUE/FALSE}
+\CommentTok{\# The innermost function is.na() returns TRUE if a value is NA.  The any()}
+\CommentTok{\# function returns TRUE if any value inside the row is TRUE.  The ‘!’ operator}
+\CommentTok{\# reverses any() so that it is FALSE if any value in the row is TRUE.  If any}
+\CommentTok{\# value in any row is NA, then that row is not included in the output file.}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Q2. Write code to convert all of these variables (healthg,
+friends, satisfaction, membership, science,size) into factor
+variables}\label{q2.-write-code-to-convert-all-of-these-variables-healthg-friends-satisfaction-membership-sciencesize-into-factor-variables}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{healthg }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{healthg)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{friends }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{friends)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{satisfaction }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{satisfaction)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{membership }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{membership)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{science }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{science)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{size }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{size)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness)  }\CommentTok{\# used in factors}
+\FunctionTok{unique}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{healthg)}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{healthg }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{healthg)}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness[df}\SpecialCharTok{$}\NormalTok{happiness }\SpecialCharTok{==} \StringTok{"1"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"1. Very happy"}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness[df}\SpecialCharTok{$}\NormalTok{happiness }\SpecialCharTok{==} \StringTok{"2"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"2. Quite happy"}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness[df}\SpecialCharTok{$}\NormalTok{happiness }\SpecialCharTok{==} \StringTok{"3"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"3. Not very happy"}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness[df}\SpecialCharTok{$}\NormalTok{happiness }\SpecialCharTok{==} \StringTok{"4"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"4. Not at all happy"}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{healthg[df}\SpecialCharTok{$}\NormalTok{healthg }\SpecialCharTok{==} \StringTok{"1"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"1. Very good"}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{healthg[df}\SpecialCharTok{$}\NormalTok{healthg }\SpecialCharTok{==} \StringTok{"2"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"2. Good"}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{healthg[df}\SpecialCharTok{$}\NormalTok{healthg }\SpecialCharTok{==} \StringTok{"3"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"3. Fair"}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{healthg[df}\SpecialCharTok{$}\NormalTok{healthg }\SpecialCharTok{==} \StringTok{"4"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"4. Poor"}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{healthg }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{healthg)}
+
+\FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness, df}\SpecialCharTok{$}\NormalTok{healthg)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Q3. Write code to make this
+change.}\label{q3.-write-code-to-make-this-change.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness[df}\SpecialCharTok{$}\NormalTok{happiness }\SpecialCharTok{==} \StringTok{"3. Not very happy"} \SpecialCharTok{|}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{happiness }\SpecialCharTok{==} \StringTok{"4. Not at all happy"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"3. Not very or not at all happy"}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{happiness }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness)}
+\FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness, df}\SpecialCharTok{$}\NormalTok{healthg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness, df}\SpecialCharTok{$}\NormalTok{healthg, }\AttributeTok{simulate.p.value =} \ConstantTok{TRUE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{expected}
+\CommentTok{\# install.packages(\textquotesingle{}weights\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(weights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Hmisc
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Hmisc'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     format.pval, units
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wtd.chi.sq}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{happiness, df}\SpecialCharTok{$}\NormalTok{healthg, }\AttributeTok{weight =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{weight)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Q4. Provide a short written interpretation of this result
+(no more than two
+sentences).}\label{q4.-provide-a-short-written-interpretation-of-this-result-no-more-than-two-sentences.}
+
+The results showed p-value is less than 0.0001. This assumes that the
+null hypothesis is rejected, which means the two categorical variables
+are not independent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{age }\SpecialCharTok{\textasciitilde{}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{healthg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{age }\SpecialCharTok{\textasciitilde{}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{healthg))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Q5. Provide a brief interpretation of this result. One of
+the assumptions of ANOVA is that the dependent variable (age in this
+case) is normally distributed. Is this a reasonable assumption? Justify
+your answer in no more than 2 sentences
+total.}\label{q5.-provide-a-brief-interpretation-of-this-result.-one-of-the-assumptions-of-anova-is-that-the-dependent-variable-age-in-this-case-is-normally-distributed.-is-this-a-reasonable-assumption-justify-your-answer-in-no-more-than-2-sentences-total.}
+
+The ANOVA results indicate that there is a significant difference in the
+mean \texttt{ages} among the different health levels (\texttt{healthg}),
+as the p-value is less than 0.001. This suggests that at least one
+\texttt{healthg} group has a mean age that is significantly different
+from the others.
+
+Regarding normal distribution, it is reasonable to assume that the age
+variable is normally distributed. However, in large samples (e.g., the
+residual degrees of freedom here is 1990), ANOVA is still robust due to
+the Central Limit Theorem even if the variable might not be normally
+distributed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{age)  }\CommentTok{\# test if df$age is normally distributed {-}{-}\textgreater{} \textquotesingle{}p \textless{} 0.001\textquotesingle{} means it\textquotesingle{}s not}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Q6. Find some data on your own. Ensure that the data has one
+categorical variable with at least three levels, and one continuous
+numeric variable. Your null hypothesis is that the numeric variable does
+not vary across the groups. Use one-way ANOVA or Kruskal-Wallis to
+analyse these data. In your answer, provide 1) a link to the data 2) a
+description of the data, 3) the results of your analysis and 4) an
+interpretation of your results. Make it look nice and pretty, and ensure
+it is no more than 1 page in
+length.}\label{q6.-find-some-data-on-your-own.-ensure-that-the-data-has-one-categorical-variable-with-at-least-three-levels-and-one-continuous-numeric-variable.-your-null-hypothesis-is-that-the-numeric-variable-does-not-vary-across-the-groups.-use-one-way-anova-or-kruskal-wallis-to-analyse-these-data.-in-your-answer-provide-1-a-link-to-the-data-2-a-description-of-the-data-3-the-results-of-your-analysis-and-4-an-interpretation-of-your-results.-make-it-look-nice-and-pretty-and-ensure-it-is-no-more-than-1-page-in-length.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(here)}
+\FunctionTok{here}\NormalTok{()}
+\NormalTok{pitchfork\_albums }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\FunctionTok{here}\NormalTok{(), }\StringTok{"/Assignments/Assignment3/data/pitchfork\_reviews.csv"}\NormalTok{)))}
+
+\NormalTok{pitchfork\_albums\_updated }\OtherTok{\textless{}{-}}\NormalTok{ pitchfork\_albums[pitchfork\_albums}\SpecialCharTok{$}\NormalTok{score }\SpecialCharTok{!=} \StringTok{"Not Available"} \SpecialCharTok{\&}
+    \SpecialCharTok{!}\NormalTok{(pitchfork\_albums}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{==} \StringTok{"Not Available"}\NormalTok{), ]}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{cnt }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{score }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{score)}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year)}
+
+\FunctionTok{boxplot}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{agg\_albums1 }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{cnt, }\AttributeTok{by =} \FunctionTok{list}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year),}
+    \AttributeTok{FUN =}\NormalTok{ sum)}
+
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year[pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textless{}=} \DecValTok{1995}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year[pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textgreater{}=} \DecValTok{1996} \SpecialCharTok{\&}\NormalTok{ pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textless{}=}
+    \DecValTok{2003}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year[pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textgreater{}} \DecValTok{2003} \SpecialCharTok{\&}\NormalTok{ pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textless{}=}
+    \DecValTok{2008}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{3}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year[pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textgreater{}} \DecValTok{2008} \SpecialCharTok{\&}\NormalTok{ pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textless{}=}
+    \DecValTok{2013}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{4}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year[pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textgreater{}} \DecValTok{2013} \SpecialCharTok{\&}\NormalTok{ pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textless{}=}
+    \DecValTok{2018}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year[pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\textgreater{}} \DecValTok{2018}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{6}
+
+\NormalTok{agg\_albums }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{score, }\AttributeTok{by =} \FunctionTok{list}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year),}
+    \AttributeTok{FUN =}\NormalTok{ mean)}
+\FunctionTok{names}\NormalTok{(agg\_albums) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Year"}\NormalTok{, }\StringTok{"ave\_scores"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(agg\_albums}\SpecialCharTok{$}\NormalTok{Year, agg\_albums}\SpecialCharTok{$}\NormalTok{ave\_scores)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{agg\_albums2 }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{cnt, }\AttributeTok{by =} \FunctionTok{list}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year),}
+    \AttributeTok{FUN =}\NormalTok{ sum)}
+
+\FunctionTok{boxplot}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pitchfork\_albums\_updated}\SpecialCharTok{$}\NormalTok{year))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Introduction}\label{introduction}
+
+Pitchfork is an American online music publication founded in 1996 by
+Ryan Schreiber in Minneapolis. Since then, it began to gain popularity
+among indie music fans and till now it has become a professionalmusic
+publication loved by a lot of people.
+
+In this project I used
+\href{https://www.kaggle.com/datasets/timstafford/pitchfork-reviews}{``Pitchfork
+Reviews: Music Critiques Over the Years''} Kaggle dataset uploaded by
+Tim Stafford.
+
+\subsubsection{Data Preparation and Descriptive
+Analysics}\label{data-preparation-and-descriptive-analysics}
+
+This dataset has 25708 rated album records that were released from 1952
+to 2023. First, I screened out 24699 album records that do not have
+missing information about scores or years. Then I aggregated the album
+numbers by their released years and found that before 2002, the number
+of albums rated each year increased with years. And after 2002, the
+albums rated each year range stably from 850 to 1250 (which means
+averagely they publish three to four reviews every day). I chose 1996
+and 2002 as two important years and since recategorize the continuous
+\texttt{year} variable into a 1-6 categorical variable, which are
+\textless= 1995, 1996-2003, 2004-2008, 2009-2013, 2014-2018, 2019-2023).
+
+\subsubsection{ANOVA Aanalysis}\label{anova-aanalysis}
+
+I did a ANOVA test with the continuous \texttt{score} variable and the
+categorical \texttt{year} variable. The result shows that the
+\texttt{p-value} is less than 0.001, which means there exist significant
+score differences between groups. According to the box plot, it is
+obviously that the scores in the ``before 1996'' group are significantly
+higher than the other gourps, with an average score of 8.7/10.0. This is
+partly because all the albums released before 1996 that Pitchfork rated
+were not contemporary albums. They either use their ``Sunday Review''
+section to review the albums from the past once a week, or they would
+review those legacy albums after one artist make anniversity reissues
+(e.g., Aphex Twin, Joni Mitchell) or deceased (e.g., David Bowie,
+Prince). These ``old'' albums are typically rated higher.
+
+The other interesting phenomenon is the scores given were gradually
+increasing since 1996. And along with it, the variances between album
+scores in a single year are decreasing. This would mean that Pitchfork
+does not give that many incredibly ``lower'' scores (\textless{}
+4.0/10.0), neither does it give those ``super high'' scores that often
+(\textgreater{} 9.5/10.0). This is how Pitchfork has been evolving, that
+it is not that bold and brashy as it used me, instead, it became more
+``conservative'' and ``safe'' in recent years.
+
+\end{document}

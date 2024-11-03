@@ -1,0 +1,37 @@
+---
+title: "Notes3"
+author: "Haoran Xu"
+date: "2024-09-23"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+可能目前plot有些tedious，
+
+```{r}
+c1 <- c(4, 6, 3, 1, 2)
+c2 <- c(TRUE, TRUE, TRUE, FALSE, FALSE)
+data.class(c2)
+c3 <- c1[c2] # only retuning TRUE values 
+c2 <- c1[c1 >= 3] # 这个[]里面是一个类似于if的condition, 其实是在做和上面用TRUE/FALSE相似的事情类似的事情
+
+m <- matrix(runif(100), nrow=10, ncol=10)
+sub <- m[m[,1] > 0.5,]  # one way to do this: m[,1] > 0.5 返回a vector of 10 "TRUE/FALSE"
+sub <- m[which(m[,1] > 0.5),] # another way: which(m[,1] > 0.5) 返回的是indices的集合, 比如c(2,4,7,10) 
+# 如果要deal with big data, 最好是用indices, 这样可以更省时间（这叫做"vectorizing")
+```
+
+# Test statistic (parametric 参数检验)
+
+## t-test
+
+t-test, one-sample
+
+
+
+
+
+
