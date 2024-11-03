@@ -1,14 +1,18 @@
 ---
-title: "Assignment6"
+title: "GEOG 714 - Assignment 6"
 author: "Haoran Xu"
 date: "2024-11-03"
 output:
-  pdf_document: default
-  html_document: default
+  pdf_document:
+    latex_engine: xelatex
+    
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+
 ```
 
 ## R Markdown
