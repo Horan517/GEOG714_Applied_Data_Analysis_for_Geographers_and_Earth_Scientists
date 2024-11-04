@@ -5,32 +5,84 @@ date: "2024-11-03"
 output:
   pdf_document:
     latex_engine: xelatex
-    
-
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
+library(here)
+renv::install("lme4")
+library(lme4)
+```
+
+```{r}
+x1 <- rnorm(300)
+groups <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+g1 <- sample(groups, 300, replace=TRUE)
+df <- data.frame(x1, g1)
+df$y <- 5 * x1 + rnorm(300)
+```
+
+## Q1. Use lm to analyze the data. How might you incorporate g1 into this modelling process if you had to?
+
+```{r}
+lm(df$y ~ df$x1)
+lmout1 <- lm(df$y ~ df$x1)
+summary(lmout1)
+```
+
+The results of OLS two-varibale linear regression showed that y is significantly and positively correlated with x1 (p-value \< 0.001), with x1 increasing each 1, y1 is estimated to increase 5.013. And the Adjusted R-squared (0.965) indicated that the model fits well. If I would incorporate g1, there would be two ways. One is to using the calculated mean within each group as indepent variables to be used in linear regression. This way would try to incorporate the information of all observations but may lose the dicrepancies within each group, and also this would greatly lower the number of variables from 300 to 10. Another way is to conducting separate linear regression models for each group. In this case we would have to do lm for 10 times. This method can make the results “noisy” in that the estimates from each model are not based on very much data.
+
+```{r}
+group_effect1 <- rnorm(10)
+df$g1_effect1 <- group_effect1[g1]  # assign the grouping effect using index of the group, that's why the "[]" is used.
+```
+
+## Q2. In one or two sentences, explain what is happening in this code.
+
+The code first created a vector of 10 random numbers (in normal distribution with a mean of 0 and standard deviation of 1) representing the varied effects for each group. Then the `g1_effect` variable was added to `df` by assigning the `group_effect` value to each observation using the index of the `group_effect` vector (also the group number).
+
+```{r}
+df$yre <- 5 * x1 + df$g1_effect1 + rnorm(300)
+```
+
+## Q3. Write code that will create a unique regression model of the association between x1 and yre for each group. This should result in 10 models. Write code to store the results of each model in separate files (out1, out2, …, out10). You may wish to consider using a for loop for this task, and saving the output from the models in a single list() data structure.
+
+```{r}
+df_list <- list()
+out_list <- list()
+
+for (i in 1:10) {
+  df_list[[i]] <- df[df$g1 == i, ]
+  out[[i]] <- lm(yre ~ x1, data = df_list[[i]])
+  saveRDS(out[[i]], paste0("out", i, ".rds"))
+}
+
+out_list
+```
+
+```{r}
+group_effect2 <- rnorm(10, 0, 10)
+df$g1_effect2 <- group_effect2[g1]
+df$yre <- 5 * x1 + df$g1_effect2 + rnorm(300)
+lme4_out <- lmer(yre ~ x1 + (1|g1), data = df) 
+summary(lme4_out)
+
+re <- ranef(lme4_out)$g1 # create a vector caputring the different residuls for each group
+plot(re$`(Intercept)`, group_effect2)   # should use `(Intercept)` to represent the x variable
+```
+
+## Q4. How would you judge the success of the model at estimating the random effects associated with the groups based on looking at the plot? Explain your reasoning.
+
+I would check the correlation between the model's random intercepts (`re$'(Intercept)'`) and the pre-assigned group effects (`group_effect2`) in theplot. If the model is successful, the relationships between the two varibles would be significantly and positively correlated, while also aligning with the the `y = x` line. The plot has shown this pattern, suggesting the model is pretty successful.
+
+```{r}
+df2 <- read.csv(paste0(here(), "/Assignments/Assignment6/AmesHousing.csv"))
+
+
+
 
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

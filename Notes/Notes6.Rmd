@@ -9,6 +9,48 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Linear Mixed Model (LMMs) - Multilevel models
+
+### 自己学的笔记
+
+[需要不断复习的网页](https://stats.oarc.ucla.edu/other/mult-pkg/introduction-to-linear-mixed-models/#:~:text=Linear%20mixed%20models%20are%20an,or%20patients%20from%20within%20doctors)
+
+分析不同层级的variables
+e.g., 
+- 6个医生，每个医生给10个病人看病。
+- 医生是independent的，而每个医生下面的10个病人之间也是independent的，但60个病人之间不是。
+
+可能的策略：
+1. aggregating
+- 对于每个医生的10个病人取平均值
+- 这种方式会损失很多patients的数据，而且显著降低了变量数量，不推荐
+
+2. analyzing data from one unit at a time
+- 对于每个医生下面都run一个linear model
+- 但是这样models会很多，而且并没有利用到不同医生这一相关的信息。
+
+LMMs的策略：介于这两种方法之间
+Linear mixed models (also called multilevel models) can be thought of as a trade off between these two alternatives. The individual regressions has many estimates and lots of data, but is noisy. The aggregate is less noisy, but may lose important differences by averaging all samples within each doctor. LMMs are somewhere inbetween.
+
+fixed and random effects
+- A **fixed effect** is a parameter that does not vary.
+- **Random effects** are parameters that are themselves random variables.
+
+
+何时使用线性混合模型
+- 重复测量数据：当同一个体在多个时间点被观测时，可以通过随机效应反映个体的差异。
+- 嵌套数据结构：当数据具有层级结构，例如学生-班级-学校，或患者-医生-医院时，可以将班级、医生等作为随机效应。
+- 处理缺失或不平衡的数据：LMMs 可以处理观测值的数量在不同组中不一致的情况（如不同个体有不同数量的观测）。
+
+优点
+- 处理个体差异：LMMs 可以建模观测个体之间的差异。
+- 提高模型灵活性：随机效应可以减少模型的过拟合，并更好地捕获数据的结构。
+- 分析复杂数据：适合复杂的数据结构，尤其是在生物学、心理学和教育学中广泛使用。
+
+
+---
+### 课堂上的笔记
+
 举了一个例子：花了一个九宫格，每个格子里面种的有不同的植物：
 
 Fixed effects
@@ -21,8 +63,7 @@ e.g., 假设有10k个人，每个人测量连续20个月的income
 
 linear mixed models：用在如果每个case本身有多变量，random model是尝试measure不同组之间的effects
   - mixed --> fixed/random
-  
-  
+
 ```{r}
 x1 <- rnorm(300)
 groups <- seq(1:10)
