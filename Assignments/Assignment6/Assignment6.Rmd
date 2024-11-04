@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, results = 'hide', fig.show = 'hide')
 
 library(here)
 renv::install("lme4")
@@ -50,7 +50,7 @@ df$yre <- 5 * x1 + df$g1_effect1 + rnorm(300)
 
 ```{r}
 df_list <- list()
-out_list <- list()
+out <- list()
 
 for (i in 1:10) {
   df_list[[i]] <- df[df$g1 == i, ]
@@ -58,7 +58,7 @@ for (i in 1:10) {
   saveRDS(out[[i]], paste0("out", i, ".rds"))
 }
 
-out_list
+out
 ```
 
 ```{r}
@@ -78,11 +78,90 @@ I would check the correlation between the model's random intercepts (`re$'(Inter
 
 ```{r}
 df2 <- read.csv(paste0(here(), "/Assignments/Assignment6/AmesHousing.csv"))
-
-
-
-
+summary(lm(df2$SalePrice ~ df2$Gr.Liv.Area))
 ```
 
+## Q5.  Interpret the results of this model.  What is the impact of living area (in square feet) on the value of a home?
+
+The model shows that living area has a significant and positive impact on home value. Specifically, for each additional square foot of living area, the sale price of a home was estimated to increases by 111.69. The high p-value (< 2e-16) indicated that this effect is statistically significant. The adjusted r-squared value of 0.4995 suggests that around 50% of the variability in home sale prices can be explained by the living area.
+
+```{r}
+df2$Neighborhood <- factor(df2$Neighborhood)
+df2$SalePrice <- scale(df2$SalePrice)  # Normal Standardization (this would change the name of the column into "SalePrice[,1]")
+df2$Gr.Liv.Area <- scale(df2$Gr.Liv.Area)
+
+out_SalePrice1 <- lm(SalePrice ~ Gr.Liv.Area, data = df2)
+summary(out_SalePrice1)
+
+out_SalePrice2 <- lmer(SalePrice ~ (1|Neighborhood), data = df2)
+summary(out_SalePrice2)
+
+out_SalePrice3 <- lmer(SalePrice ~ Gr.Liv.Area + (1 + Gr.Liv.Area|Neighborhood), data = df2)
+summary(out_SalePrice3)
+```
+
+```{r}
+N <- as.character(unique(df2$Neighborhood))
+
+df2$predicted <- predict(out_SalePrice3)
+
+for (i in 1:28){
+  if(i == 1){
+    plot(
+      df2$Gr.Liv.Area[df2$Neighborhood == N[i]], 
+      df2$predicted[df2$Neighborhood == N[i]],
+      ylim = c(-4, 4), pch = 20, cex = 0.5, col = "red",
+      ylab = "Predictions of sales price", xlab = "Living space"
+    )
+  }
+  points(
+    df2$Gr.Liv.Area[df2$Neighborhood == N[i]], 
+    df2$predicted[df2$Neighborhood == N[i]],
+    pch = 20, cex = 0.5, col = "blue"
+  )
+}
+```
+
+## Q6.  What is the ‘N’ vector, and what is it doing in this code?
+
+The `N` vector contains the unique neighborhood names from the `df2$Neighborhood`. And this code is using loop to plot the relationships between living space (normally standized) and predictions of sale price for each neighhood.
+
+## Q7. Use another independent variable in this data set and go through the same steps above, interpreting the results accordingly.
+
+```{r}
+df2$Bldg.Type <- factor(df2$Bldg.Type)
+
+unique(df2$Bldg.Type)
+
+out_SalePrice4 <- lmer(SalePrice ~ Gr.Liv.Area + (1 + Gr.Liv.Area|Bldg.Type), data = df2)
+summary(out_SalePrice4)
+
+N <- as.character(unique(df2$Bldg.Type))
+
+df2$predicted2 <- predict(out_SalePrice4)
+
+for (i in 1:5){
+  if(i == 1){
+    plot(
+      df2$Gr.Liv.Area[df2$Bldg.Type == N[i]], 
+      df2$predicted2[df2$Bldg.Type == N[i]],
+      ylim = c(-4, 6), pch = 20, cex = 0.5, col = "red",
+      ylab = "Predictions of sales price", xlab = "Living space"
+    )
+  }
+  points(
+    df2$Gr.Liv.Area[df2$Bldg.Type == N[i]], 
+    df2$predicted2[df2$Bldg.Type == N[i]],
+    pch = 20, cex = 0.5, col = "green"
+  )
+  max_x <- max(df2$Gr.Liv.Area[df2$Bldg.Type == N[i]])
+  max_y <- max(df2$predicted2[df2$Bldg.Type == N[i]])
+  text(max_x, max_y, labels = N[i], pos = 2, cex = 0.5, col = "blue")
+}
+```
+
+I chose `Bldg.Type` as the grouping varibale. This factorial variable has 5 groups - "1Far, 2fmCon, Duplex, Twnhs, TwnhsE", which may represent "Single-family detached house, Two-family conversion, Duplex, Townhouse End Unit, Townhouse Inside Unit". 
+
+The results showed that 1) generally, the predicated sale prices increase positively (0.562) and significantly (t-value > 3.6) with the living space getting bigger, according to the fixed effects; 2) sale prices varie by building type (the variance of random intercept is 0.481 > 0); 3) the association between sale prices and living space varies systematically across building types, with the random slope effect > 0; 4) in building types with higher sales prices (such as Single-family detached house or Townhouse Inside Unit), the relationship between sales price and living space is stronger (the slope is steeper) than in those with lower sales prices (as the correlation between random intercept and slope effects is 1.00), as also shown in the graphics.
 
 
