@@ -1,0 +1,46 @@
+---
+title: "Notes8"
+author: "Haoran Xu"
+date: "2024-11-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+v <- c(7, 4, 1, 4, 4)
+which(v == 4)
+```
+
+## Cluster Analysis
+
+这个是reducing observations，而不像PCA是那种reducing varibles.
+
+distance matrix
+
+core: minimize distances between oversvations in the same group
+
+e.g., K-mean Clusters
+Lloyd's algorithm
+问题：
+- 需要选K groups
+- 需要选择不同的weights
+
+
+e.g., Hierarchical clustering (例如生物的分类？)
+Dendrogram (树状图)
+Single linkage agglomerative clustering
+
+
+e.g.,
+定义不同的地方，问chatgpt不同的responses
+
+
+
+
+
+有很多种：
+
+
