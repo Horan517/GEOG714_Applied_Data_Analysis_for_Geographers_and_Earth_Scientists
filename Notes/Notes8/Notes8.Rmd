@@ -16,11 +16,11 @@ which(v == 4)
 
 ## Cluster Analysis
 
-这个是reducing observations，而不像PCA是那种reducing varibles.
+这个是reducing observations，而不像PCA是那种reducing variables.
 
 distance matrix
 
-core: minimize distances between oversvations in the same group
+core: minimize distances between observations in the same group
 
 e.g., K-mean Clusters
 Lloyd's algorithm
@@ -34,13 +34,5 @@ Dendrogram (树状图)
 Single linkage agglomerative clustering
 
 
-e.g.,
+e.g., PPT倒数第二页的研究
 定义不同的地方，问chatgpt不同的responses
-
-
-
-
-
-有很多种：
-
-
