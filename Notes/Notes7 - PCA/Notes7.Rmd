@@ -1,0 +1,88 @@
+---
+title: "Notes7"
+author: "Haoran Xu"
+date: "2024-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## PCA
+
+### 课堂笔记
+
+不同的变量之间可能有关系
+
+PCA可以用于计算许多变量然后yield one single walkability score
+turning multi-dimention data into lowe dimensions: 会lose some detail但是保留了essence
+
+如果只有两个variable,可以不用pca
+
+e.g., 最简单的例子：两个variable
+1. Maximizatino Variance: 将矩阵旋转，然后创造两个新的synthetic axis (uncorrelated with each other), 其中一个axis会有maximum variance, the other aixs would have the second biggest variance.
+
+```{r}
+size <- 100
+x <- rnorm(size)
+y <- rnorm(size) / 2 + x / 2
+
+m <- as.matrix(cbind(x, y))
+
+df <- as.data.frame(m)
+names(df) <- c("x", "y")
+
+df$id <- seq(1:100)
+
+df$py <- predict(lm(df$y ~ df$x))
+
+summary(lm(df$y ~ df$x))
+
+plot(df$x, df$y, pch = 20, col = "red")
+abline(lm(df$y ~ df$x), col = "purple")
+
+# residuals line应该画在点和紫色的线之间
+
+# 想象一下rotating，然后variances会变化，垂直于新的axis
+
+cov1 <- cov(df[, 1:2]) 
+# covariance matrix: 
+# The diagonal elements represent the variance of each column (i.e., the covariance of each column with itself).
+# The off-diagonal elements represent the covariance between the two columns.
+
+Eig <- eigen(cov1) # 可以cal
+# 这个里面关于Eig$vectors的结构是[1, 1], [1, 2], [2, 1], [2, 2]
+
+eigenvector1 <- Eig$vectors[, 1] # the first column
+eigenvector2 <- Eig$vectors[, 2] # the second column
+
+# plot the eigenmatrix and vlaue. 
+plot(0, 0, type = "n")
+arrows(0, 0, eigenvector1[1], eigenvector1[2], 
+      col = "red")
+arrows(0, 0, eigenvector2[1], eigenvector2[2], 
+      col = "blue")
+
+
+
+# eigen vector是axis的方向，eigen value 是值
+
+pca <- princomp(df[, 1:2], score = TRUE)
+summary(pca)
+
+# 如果两个variable不相关，components会都接近50%
+
+df$z <- rnorm(100) + x + y
+pca <- princomp(df[, c(1, 2, 5)], score = TRUE)
+summary(pca)
+biplot(pca, main = "PC1 and PC2") # x轴是PC1, y轴是PC2
+
+# Component 1 explained a lot of variacnecs of z (z vector的方向是和com 1 几乎是平行的)
+
+biplot(pca, choices = 2:3, main = "PC2 and PC3") # 相当于map out 第二个和第三个components
+ # x轴是PC2, y轴是PC3
+
+```
+
+
