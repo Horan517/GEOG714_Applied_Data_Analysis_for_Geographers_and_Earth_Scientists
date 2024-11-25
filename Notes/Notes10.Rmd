@@ -1,0 +1,41 @@
+---
+title: "Notes10"
+author: "Haoran Xu"
+date: "2024-11-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+x <- c(1, 2, 3, 4, 7)
+print(which(x <= 4) > 3)
+```
+
+### Longtitudinal regression analysis
+
+### Univariate time series modelling
+
+- Autoregressive (AR)
+- Integrated (I)
+- Movign average
+ARIMA(p, d, q)
+
+在industry用的会多一些，但是在academia用的不多（因为academia更关注knowledge而不是forcasting)
+
+### Time series analysis with other predictors
+
+"changepoint" detection analysis (if the "changepoint" is unknown)
+
+
+
+
+
+
+
+
+
+
+
