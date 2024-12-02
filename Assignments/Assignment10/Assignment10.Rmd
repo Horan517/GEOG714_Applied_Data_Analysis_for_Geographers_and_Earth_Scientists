@@ -1,0 +1,109 @@
+---
+title: "Assignment10"
+author: "Haoran Xu"
+date: "2024-11-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(forecast)
+```
+
+
+```{r}
+l1 <-rnorm(1000)
+l2 <- rep(0,length(l1))
+l3 <- rep(0,length(l1))
+l4 <- rep(0,length(l1))
+
+for(i in 5:length(l1)){
+  l2[i] <- (l1[i-4]+rnorm(1))/2
+  l3[i] <- (l1[i-1]+l1[i-2]+l1[i])/3
+  l4[i] <- l3[i]+0.001*i
+}
+
+plot(l4,pch=20,col="red",xlab="time")
+
+#t-1
+outlag1 <- lm(l4[2:1000] ~ l4[1:999])
+summary(outlag1)
+plot(l4[2:1000] ~ l4[1:999])
+```
+
+## Q1. Use this same approach to write code to create a predictive model that models t (l4) as a function of t-2, and then a second model that predicts t as a function of t-3.  Call the models outlag2 and outlag3 respectively.  Describe the differences in R-squared values between these models.
+
+```{r}
+#t-2
+outlag2 <- lm(l4[3:1000] ~ l4[1:998])
+summary(outlag2)
+plot(l4[3:1000] ~ l4[1:998])
+
+#t-3
+outlag3 <- lm(l4[4:1000] ~ l4[1:997])
+summary(outlag3)
+plot(l4[4:1000] ~ l4[1:997])
+```
+
+R-squared is decreasing
+
+```{r}
+# Test for autocorrelation in data
+Box.test(l1, lag=1, type = "Ljung-Box")
+
+# Test for autocorrelation in the model1 residuals
+Box.test(residuals(outlag1),
+         lag=1, type = "Ljung-Box")
+```
+
+## Q2. Write code that applies the Box-Ljung test to the residuals from outlag2 and outlag3 and briefly interpret the p-value.
+
+```{r}
+# Test for autocorrelation in the model2 residuals
+Box.test(residuals(outlag2),
+         lag=1, type = "Ljung-Box")
+
+# Test for autocorrelation in the model3 residuals
+Box.test(residuals(outlag3),
+         lag=1, type = "Ljung-Box")
+```
+
+...
+
+```{r}
+plot(seq(1:length(residuals(outlag1))), residuals(outlag1))
+
+d_ts2 <- ts(l4, start=c(1900, 1), frequency = 12)
+```
+
+## Q3. Using l4, create a data object called d_ts that starts on January 1st 1999 and has a daily frequency.
+
+```{r}
+d_ts <- ts(l4, start=c(1999, 1), frequency = 365)
+```
+
+```{r}
+plot(d_ts2)
+plot(d_ts)
+
+d_ts_diff <- diff(d_ts)
+plot(d_ts_diff)
+```
+
+## Q4. Use the Box-Ljung test to determine if there is any remaining autocorrelation in the data.  Interpret the result.
+
+```{r}
+# Test ...?
+Box.test(residuals(??),
+         lag=1, type = "Ljung-Box")
+```
+
+...
+
+
+....
+
+
